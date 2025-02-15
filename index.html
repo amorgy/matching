@@ -37,7 +37,7 @@
             background-color: lightgreen;
         }
         .hidden {
-            background-image: url('images/card-back.webp'); /* Replace with actual back-of-card image */
+            background-image: url('images/card-back.webp');
             background-size: cover;
         }
         button {
@@ -49,9 +49,12 @@
 </head>
 <body>
     <h1>Memory Matching Game</h1>
-    <label for="match-count">Select number of matches (5-20):</label>
-    <input type="number" id="match-count" min="5" max="20" value="10">
-    <button id="start-game">Start Game</button>
+    <div>
+        <button onclick="startGame(5)">Easy (5 Matches)</button>
+        <button onclick="startGame(10)">Medium (10 Matches)</button>
+        <button onclick="startGame(15)">Hard (15 Matches)</button>
+        <button onclick="startGame(20)">Very Hard (20 Matches)</button>
+    </div>
     <p id="timer">Time: 0s</p>
     <div id="game-container">
         <div id="grid"></div>
@@ -88,21 +91,18 @@
         let startTime;
         let timerInterval;
 
-        document.getElementById('start-game').addEventListener('click', startGame);
         document.getElementById('give-up').addEventListener('click', endGame);
-        document.getElementById('restart').addEventListener('click', startGame);
+        document.getElementById('restart').addEventListener('click', () => startGame(10));
 
-        function startGame() {
-            const matchCount = parseInt(document.getElementById('match-count').value);
+        function startGame(matchCount) {
             const selectedImages = Object.keys(imagePaths).sort(() => 0.5 - Math.random()).slice(0, matchCount);
             const cards = [...selectedImages, ...selectedImages].sort(() => 0.5 - Math.random());
             
             const grid = document.getElementById('grid');
             grid.innerHTML = '';
             
-            const gridSize = Math.ceil(Math.sqrt(cards.length));
-            const cardSize = Math.min(window.innerWidth / gridSize - 10, window.innerHeight / gridSize - 10);
-grid.style.gridTemplateColumns = `repeat(4, ${cardSize}px)`;
+            const gridSize = Math.min(5, Math.ceil(Math.sqrt(cards.length)));
+            grid.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
             
             matchedPairs = 0;
             startTime = new Date().getTime();
@@ -138,7 +138,7 @@ grid.style.gridTemplateColumns = `repeat(4, ${cardSize}px)`;
                 card1.classList.add('matched');
                 card2.classList.add('matched');
                 matchedPairs++;
-                if (matchedPairs === parseInt(document.getElementById('match-count').value)) {
+                if (matchedPairs === document.querySelectorAll('.matched').length / 2) {
                     clearInterval(timerInterval);
                     alert(`Congratulations! You completed the game in ${document.getElementById('timer').textContent}`);
                 }
