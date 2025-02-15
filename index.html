@@ -49,7 +49,7 @@
 </head>
 <body>
     <h1>Memory Matching Game</h1>
-    <div>
+    <div id="difficulty-buttons">
         <button onclick="startGame(5)">Easy (5 Matches)</button>
         <button onclick="startGame(10)">Medium (10 Matches)</button>
         <button onclick="startGame(15)">Hard (15 Matches)</button>
@@ -58,8 +58,8 @@
     <p id="timer">Time: 0s</p>
     <div id="game-container">
         <div id="grid"></div>
-        <button id="give-up">Give Up</button>
-        <button id="restart">Restart</button>
+        <button id="give-up" style="display:none;">Give Up</button>
+        <button id="restart" style="display:none;">Restart</button>
     </div>
 
     <script>
@@ -95,6 +95,9 @@
         document.getElementById('restart').addEventListener('click', () => startGame(10));
 
         function startGame(matchCount) {
+            document.getElementById('difficulty-buttons').style.display = 'none';
+            document.getElementById('give-up').style.display = 'inline';
+            document.getElementById('restart').style.display = 'inline';
             const selectedImages = Object.keys(imagePaths).sort(() => 0.5 - Math.random()).slice(0, matchCount);
             const cards = [...selectedImages, ...selectedImages].sort(() => 0.5 - Math.random());
             
