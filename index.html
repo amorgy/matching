@@ -102,7 +102,7 @@
             
             const gridSize = Math.ceil(Math.sqrt(cards.length));
             const cardSize = Math.min(window.innerWidth / gridSize - 10, window.innerHeight / gridSize - 10);
-grid.style.gridTemplateColumns = `repeat(${gridSize}, ${cardSize}px)`;
+grid.style.gridTemplateColumns = `repeat(4, ${cardSize}px)`;
             
             matchedPairs = 0;
             startTime = new Date().getTime();
