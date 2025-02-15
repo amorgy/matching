@@ -143,7 +143,7 @@
                 card1.classList.add('matched');
                 card2.classList.add('matched');
                 matchedPairs++;
-                if (matchedPairs === document.querySelectorAll('.matched').length / 2) {
+                if (matchedPairs === currentMatchCount) {
                     clearInterval(timerInterval);
                     alert(`Congratulations! You completed the game in ${document.getElementById('timer').textContent}`);
                 }
