@@ -92,9 +92,11 @@
         let timerInterval;
 
         document.getElementById('give-up').addEventListener('click', endGame);
-        document.getElementById('restart').addEventListener('click', () => startGame(10));
+        document.getElementById('restart').addEventListener('click', () => startGame(currentMatchCount));
 
+        let currentMatchCount;
         function startGame(matchCount) {
+            currentMatchCount = matchCount;
             document.getElementById('difficulty-buttons').style.display = 'none';
             document.getElementById('give-up').style.display = 'inline';
             document.getElementById('restart').style.display = 'inline';
@@ -162,6 +164,12 @@
         }
 
         function endGame() {
+            clearInterval(timerInterval);
+            alert('Game Over!');
+            document.getElementById('difficulty-buttons').style.display = 'block';
+            document.getElementById('give-up').style.display = 'none';
+            document.getElementById('restart').style.display = 'none';
+            document.getElementById('grid').innerHTML = '';
             clearInterval(timerInterval);
             alert('Game Over!');
         }
